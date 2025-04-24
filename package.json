@@ -1,0 +1,45 @@
+{
+  "name": "@xavialyra/svelte-svg-gen",
+  "version": "1.0.0",
+  "description": "CLI tool to convert SVG files into typed Svelte components and a dynamic loader.",
+  "type": "module",
+  "bin": {
+    "svelte-svg-gen": "./bin/generate-icons.js"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "fs-extra": "^11.3.0",
+    "glob": "^10.4.5",
+    "inquirer": "^12.5.2",
+    "kleur": "^4.1.5",
+    "svgo": "^3.3.2",
+    "yargs": "^17.7.2"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.1",
+    "@types/node": "^18.17.1",
+    "@types/node-fetch": "^2.6.12",
+    "@types/prompts": "^2.4.9",
+    "@types/yargs": "^17.0.24",
+    "node-fetch": "^2.7.0",
+    "prompts": "^2.4.2"
+  },
+  "files": [
+    "bin",
+    "src"
+  ],
+  "keywords": [
+    "svelte",
+    "svg",
+    "icon",
+    "generator",
+    "cli"
+  ],
+  "author": "xavialyra <xavialyra@outlook.com>",
+  "license": "MIT"
+}
