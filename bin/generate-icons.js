@@ -9,7 +9,7 @@ import inquirer from "inquirer";
 import kleur from "kleur";
 import { createSvelteIconComponent } from "../src/templates/svelteIconTemplate.js";
 import { createSvgIconLoaderComponent } from "../src/templates/svgIconLoaderTemplate.js";
-const SCRIPT_NAME = "@xavialyra/svelte-svg-gen";
+const SCRIPT_NAME = "svelte-svg-gen";
 const DEFAULT_OUTPUT_DIR = "src/lib/svg-icons";
 const COMPONENTS_SUBDIR = "components";
 const LOADER_NAME = "SvgIcon";

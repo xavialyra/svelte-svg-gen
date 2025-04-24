@@ -24,7 +24,7 @@ A command-line tool to convert SVG files, URLs, or direct SVG content into Svelt
 ## Usage
 
 ```bash
-npx @xavialyra/svelte-svg-gen [options]
+npx svelte-svg-gen [options]
 ```
 
 ### Options
@@ -44,49 +44,49 @@ npx @xavialyra/svelte-svg-gen [options]
 1. **Convert a single SVG file:**
 
    ```bash
-   npx @xavialyra/svelte-svg-gen -i path/to/my-icon.svg
+   npx svelte-svg-gen -i path/to/my-icon.svg
    ```
 
 2. **Convert all SVG files in a directory:**
 
    ```bash
-   npx @xavialyra/svelte-svg-gen -i path/to/icons-directory
+   npx svelte-svg-gen -i path/to/icons-directory
    ```
 
 3. **Convert an SVG file from a URL:**
 
    ```bash
-   npx @xavialyra/svelte-svg-gen -i https://example.com/my-icon.svg
+   npx svelte-svg-gen -i https://example.com/my-icon.svg
    ```
 
 4. **Specify a custom output directory:**
 
    ```bash
-   npx @xavialyra/svelte-svg-gen -i path/to/my-icon.svg -o path/to/my/custom/output
+   npx svelte-svg-gen -i path/to/my-icon.svg -o path/to/my/custom/output
    ```
 
 5. **Specify a custom SVGO configuration file:**
 
    ```bash
-   npx @xavialyra/svelte-svg-gen -i path/to/my-icon.svg --svgoConfig ./svgo.config.js
+   npx svelte-svg-gen -i path/to/my-icon.svg --svgoConfig ./svgo.config.js
    ```
 
 6. **Clean the components directory before generating:**
 
    ```bash
-   npx @xavialyra/svelte-svg-gen -i path/to/my-icon.svg --clean
+   npx svelte-svg-gen -i path/to/my-icon.svg --clean
    ```
 
 7. **Regenerate type definitions from existing components:**
 
    ```bash
-   npx @xavialyra/svelte-svg-gen -r
+   npx svelte-svg-gen -r
    ```
 
 8. **Interactive mode (no arguments):**
 
    ```bash
-   npx @xavialyra/svelte-svg-gen
+   npx svelte-svg-gen
    ```
 
    This mode will prompt you to choose between providing file/URL inputs or pasting SVG content directly.

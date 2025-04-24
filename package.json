@@ -1,6 +1,6 @@
 {
-  "name": "@xavialyra/svelte-svg-gen",
-  "version": "1.0.0",
+  "name": "svelte-svg-gen",
+  "version": "1.0.1",
   "description": "CLI tool to convert SVG files into typed Svelte components and a dynamic loader.",
   "type": "module",
   "bin": {
@@ -40,6 +40,6 @@
     "generator",
     "cli"
   ],
-  "author": "xavialyra <xavialyra@outlook.com>",
+  "author": "xavia <xavialyra@outlook.com>",
   "license": "MIT"
 }
