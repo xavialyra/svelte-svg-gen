@@ -109,22 +109,22 @@ Example `svgo.config.js`:
 
 ```javascript
 export default {
-	multipass: true,
-	plugins: [
-		{
-			name: 'preset-default',
-			params: {
-				overrides: {
-					removeViewBox: false
-				}
-			}
-		},
-		{ name: 'removeAttrs', params: { attrs: '(stroke|style)' } },
-		{
-			name: 'addAttributesToSVGElement',
-			params: { attributes: [{ focusable: 'false' }, { 'aria-hidden': 'true' }] }
-		}
-	]
+  multipass: true,
+  plugins: [
+    {
+      name: 'preset-default',
+      params: {
+        overrides: {
+          removeViewBox: false
+        }
+      }
+    },
+    { name: 'removeAttrs', params: { attrs: '(stroke|style)' } },
+    {
+      name: 'addAttributesToSVGElement',
+      params: { attributes: [{ focusable: 'false' }, { 'aria-hidden': 'true' }] }
+    }
+  ]
 };
 
 ```
