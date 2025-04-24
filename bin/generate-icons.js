@@ -82,7 +82,6 @@ async function loadSvgoConfiguration(configPath) {
   }
   return defaultSvgoConfig;
 }
-
 async function fetchSvgContent(url) {
   try {
     const response = await fetch(url);
@@ -261,14 +260,6 @@ async function run() {
       type: "array",
       description: "Input directories, .svg files, or HTTP(S) URLs (space-separated)",
     })
-    .option("svg", {
-      type: "string",
-      description: "Direct SVG content string (use with --name)",
-    })
-    .option("name", {
-      type: "string",
-      description: "Name for the SVG provided via --svg",
-    })
     .option("output", {
       alias: "o",
       type: "string",
@@ -297,29 +288,17 @@ async function run() {
     })
     .help()
     .alias("help", "h")
-    .check((argv) => {
-      if (argv.svg && !argv.name) {
-        throw new Error("The --name option is required when using --svg.");
-      }
-      if (!argv.svg && argv.name) {
-        throw new Error("The --svg option is required when using --name.");
-      }
-      return true;
-    })
     .parse();
   // --- Manual Conflict Checks ---
   if (argv.regenerate && argv.clean) {
     console.error(kleur.red("✖ Error: The --regenerate and --clean options cannot be used together."));
     process.exit(1);
   }
-  if (argv.regenerate && (argv.input?.length || argv.svg)) {
-    console.error(kleur.red("✖ Error: The --regenerate option cannot be used with --input, --svg, or --name."));
+  if (argv.regenerate && argv.input?.length) {
+    console.error(kleur.red("✖ Error: The --regenerate option cannot be used with --input."));
     process.exit(1);
   }
-  if (argv.input?.length && argv.svg) {
-    console.error(kleur.red("✖ Error: The --input option cannot be used with --svg or --name."));
-    process.exit(1);
-  }
+
   // --- Resolve Paths and Config early (needed for regenerate) ---
   const outputDirArg = argv.output || DEFAULT_OUTPUT_DIR;
   let outputDir = path.resolve(process.cwd(), outputDirArg);
@@ -337,26 +316,7 @@ async function run() {
     console.log(kleur.magenta("Processing inputs from arguments..."));
     sourcesToProcess = await resolveInputSources(argv.input);
     inputProvided = true;
-  } else if (argv.svg && argv.name) {
-    console.log(kleur.magenta("Processing direct SVG from arguments..."));
-    const names = sanitizeName(argv.name);
-    if (!names) {
-      console.error(kleur.red(`✖ Invalid name derived from --name: "${argv.name}"`));
-      process.exit(1);
-    }
-    if (!argv.svg.trim().startsWith("<svg")) {
-      console.error(kleur.red(`✖ Invalid SVG content provided via --svg. It should start with "<svg...".`));
-      process.exit(1);
-    }
-    sourcesToProcess.push({
-      type: "direct",
-      origin: `--name ${argv.name}`,
-      content: argv.svg,
-      baseName: names.baseName,
-      componentName: names.componentName,
-    });
-    inputProvided = true;
-  } else if (!argv.regenerate) {
+  } else {
     console.log(kleur.yellow("No input method specified via arguments, entering interactive mode:\n"));
     const modeAnswer = await inquirer.prompt([
       {
@@ -446,7 +406,7 @@ async function run() {
   } else if (!inputProvided && !argv.regenerate) {
     console.error(
       kleur.red(
-        "\n✖ No input sources specified or resolved. Use --input, --svg/--name, or run without arguments for prompts."
+        "\n✖ No input sources specified or resolved. Use --input or run without arguments for prompts."
       )
     );
     console.log(kleur.cyan("  Or use --regenerate to rebuild from existing components."));
@@ -480,7 +440,6 @@ async function run() {
   console.log(kleur.magenta("Processing Options:"));
   let inputDesc = "Interactive";
   if (argv.input?.length) inputDesc = `Files/URLs: ${argv.input.join(", ")}`;
-  else if (argv.svg && argv.name) inputDesc = `Direct SVG: Name: ${argv.name}`;
   console.log(kleur.gray(`  Input Source:   `), kleur.blue(inputDesc));
   console.log(kleur.gray(`  Output Dir:     `), kleur.blue(path.relative(process.cwd(), outputDir) || "."));
   console.log(kleur.gray(`  Clean Subdir:   `), kleur.blue(argv.clean ? "Yes" : "No"));
@@ -615,7 +574,6 @@ async function run() {
       }.`
     )
   );
-
   // --- Generate Type Definition File ---
   const iconMapContent = allIcons.map((icon) => `  '${icon.baseName}': '${icon.componentName}',`).join("\n");
   const uniqueIconBaseNames = [...new Set(allIcons.map((icon) => icon.baseName))].sort();
