@@ -1,10 +1,10 @@
 {
   "name": "svelte-svg-gen",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "CLI tool to convert SVG files into typed Svelte components and a dynamic loader.",
   "type": "module",
   "bin": {
-    "svelte-svg-gen": "./bin/generate-icons.js"
+    "svelte-svg-gen": "bin/generate-icons.js"
   },
   "engines": {
     "node": ">=16.0.0"
