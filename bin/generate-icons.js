@@ -103,7 +103,9 @@ async function resolveInputSources(inputs) {
   if (!inputs || inputs.length === 0) {
     return [];
   }
-  for (const input of inputs) {
+  for (let input of inputs) {
+    input = input.replace(/^"|"$/g, '');
+
     if (input.startsWith("http://") || input.startsWith("https://")) {
       console.log(kleur.cyan(`→ Fetching SVG from URL:`), input);
       const result = await fetchSvgContent(input);
